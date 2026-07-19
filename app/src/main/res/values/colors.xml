@@ -15,4 +15,12 @@
     <color name="blink_color">#3B82F6</color>
     <color name="car_normal_color">#3B82F6</color>
     <color name="car_alert_color">#EF4444</color>
+    <color name="triangle_idle_color">#4A4E55</color>
+    <color name="headlight_off_color">#4A4E55</color>
+    <color name="headlight_on_color">#EAF5FF</color>
+    <color name="icon_muted_color">#8B95A5</color>
+    <color name="action_active_bg_color">#1E3A5F</color>
+    <color name="hazard_color">#FFB300</color>
+    <color name="speedo_track_color">#2A3547</color>
+    <color name="speedo_fill_color">#3B82F6</color>
 </resources>
