@@ -1,55 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/background_dark">
+    android:background="@color/background_dark"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CAN Dashboard"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/connectionStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connected"
+        android:textColor="@color/led_on_color"
+        android:textSize="13sp"
+        app:layout_constraintTop_toTopOf="@id/appTitle"
+        app:layout_constraintBottom_toBottomOf="@id/appTitle"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/carIndicatorContainer"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/appTitle"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/carIndicator"
+            android:layout_width="160dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:background="@drawable/car_shape" />
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/car_window_shape" />
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/car_window_shape" />
+    </FrameLayout>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:id="@+id/temperatureCard"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        android:background="@drawable/status_card_bg"
+        android:padding="14dp"
+        app:layout_constraintTop_toBottomOf="@id/carIndicatorContainer"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temperature"
+            android:textColor="@color/text_primary"
+            android:alpha="0.7"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tempValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
+            android:text="--°C"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/tempProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:max="100"
+            android:progress="0"
+            android:progressTint="@color/led_on_color" />
+
+        <TextView
+            android:id="@+id/thresholdLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Alert above --°C"
+            android:textColor="@color/text_primary"
+            android:alpha="0.5"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/statusGrid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/appTitle"
+        app:layout_constraintStart_toEndOf="@id/carIndicatorContainer"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:padding="20dp"
-            android:background="@drawable/status_card_bg"
-            android:textColor="@color/text_primary"
-            android:textSize="18sp"
-            android:fontFamily="monospace"
-            android:lineSpacingExtra="6dp" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/ledOnButton"
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/button_led_on"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:text="LED ON" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                android:background="@drawable/status_card_bg"
+                android:padding="12dp">
+                <TextView android:text="LED" android:textColor="@color/text_primary" android:alpha="0.7" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <TextView android:id="@+id/ledStatusValue" android:text="Off" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/ledOffButton"
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/button_led_off"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:text="LED OFF" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/status_card_bg"
+                android:padding="12dp">
+                <TextView android:text="Mode" android:textColor="@color/text_primary" android:alpha="0.7" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <TextView android:id="@+id/modeValue" android:text="Normal" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/blinkButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:background="@drawable/button_blink"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:text="BLINK MODE" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                android:background="@drawable/status_card_bg"
+                android:padding="12dp">
+                <TextView android:text="Button" android:textColor="@color/text_primary" android:alpha="0.7" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <TextView android:id="@+id/buttonValue" android:text="Released" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/status_card_bg"
+                android:padding="12dp">
+                <TextView android:text="Error" android:textColor="@color/text_primary" android:alpha="0.7" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <TextView android:id="@+id/errorValue" android:text="OK" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-</ScrollView>
+
+    <LinearLayout
+        android:id="@+id/controlButtonsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/statusGrid"
+        app:layout_constraintStart_toStartOf="@id/statusGrid"
+        app:layout_constraintEnd_toEndOf="@id/statusGrid">
+
+        <Button android:id="@+id/ledOnButton" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:layout_marginEnd="8dp" android:background="@drawable/button_led_on" android:textColor="#FFFFFF" android:textSize="12sp" android:text="LED ON" />
+        <Button android:id="@+id/ledOffButton" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:layout_marginEnd="8dp" android:background="@drawable/button_led_off" android:textColor="#FFFFFF" android:textSize="12sp" android:text="LED OFF" />
+        <Button android:id="@+id/blinkButton" android:layout_width="0dp" android:layout_height="56dp" android:layout_weight="1" android:background="@drawable/button_blink" android:textColor="#FFFFFF" android:textSize="12sp" android:text="BLINK" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/vinRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/status_card_bg"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/controlButtonsRow"
+        app:layout_constraintStart_toStartOf="@id/controlButtonsRow"
+        app:layout_constraintEnd_toEndOf="@id/controlButtonsRow">
+
+        <Button
+            android:id="@+id/readVinButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:text="Read VIN" />
+
+        <TextView
+            android:id="@+id/vinValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:fontFamily="monospace"
+            android:textColor="@color/text_primary"
+            android:textSize="13sp"
+            android:text="Not read yet" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/udsButtonsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/vinRow"
+        app:layout_constraintStart_toStartOf="@id/vinRow"
+        app:layout_constraintEnd_toEndOf="@id/vinRow">
+
+        <Button android:id="@+id/readStatusUdsButton" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:layout_marginEnd="6dp" android:textSize="10sp" android:text="Read Status" />
+        <Button android:id="@+id/readSensorUdsButton" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:layout_marginEnd="6dp" android:textSize="10sp" android:text="Read Sensor" />
+        <Button android:id="@+id/writeLedUdsButton" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:layout_marginEnd="6dp" android:textSize="10sp" android:text="Write LED" />
+        <Button android:id="@+id/writeModeUdsButton" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:textSize="10sp" android:text="Write Mode" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/debugSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        android:background="@drawable/status_card_bg"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/udsButtonsRow"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Debug frames" android:textColor="@color/text_primary" android:alpha="0.7" android:textSize="12sp" />
+            <Button android:id="@+id/readDebugButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="11sp" android:text="Clear Read" android:layout_marginEnd="8dp" />
+            <Button android:id="@+id/writeDebugButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="11sp" android:text="Clear Write" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/readDebugText" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:layout_marginEnd="8dp" android:background="@color/background_dark" android:padding="8dp" android:fontFamily="monospace" android:textColor="@color/text_primary" android:alpha="0.4" android:textSize="11sp" android:text="Hidden" />
+            <TextView android:id="@+id/writeDebugText" android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:background="@color/background_dark" android:padding="8dp" android:fontFamily="monospace" android:textColor="@color/text_primary" android:alpha="0.4" android:textSize="11sp" android:text="Hidden" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
